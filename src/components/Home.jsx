@@ -107,7 +107,7 @@ const Home = () => {
         variants={itemVariants}
       >
         <motion.a
-          href="https://drive.google.com/file/d/1ivCZYaU7Mpcwr7YUDJlA3U1atKbFrjwf/view?usp=sharing"
+          href="https://drive.google.com/file/d/1w0h43nb40FX9A2SME_8p2GqgCsDzxOOc/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="w-full sm:w-auto"
