@@ -11,22 +11,22 @@ const socialLinks = [
   {
     icon: <FaGithub />,
     href: "https://github.com/Gagan021-5",
-    hoverColor: "#fff",
+    color: "#ffffff",
   },
   {
     icon: <FaLinkedinIn />,
     href: "https://www.linkedin.com/in/gagan-singh-145781321",
-    hoverColor: "#0A66C2",
+    color: "#0A66C2",
   },
   {
     icon: <SiLeetcode />,
     href: "https://leetcode.com/u/Gagan021/",
-    hoverColor: "#FFA116",
+    color: "#FFA116",
   },
   {
     icon: <RiTwitterXLine />,
     href: "https://x.com/Gagan_zs",
-    hoverColor: "#1DA1F2",
+    color: "#1DA1F2",
   },
 ];
 
@@ -35,157 +35,181 @@ const Navbar = () => {
   const [active, setActive] = useState("#home");
   const [scrolled, setScrolled] = useState(false);
 
+  // Handle scroll effect for the navbar background/size
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50;
+      if (scrolled !== isScrolled) setScrolled(isScrolled);
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [scrolled]);
 
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
+    { name: "Experience", href: "#experience" },
     { name: "Projects", href: "#project" },
   ];
 
-    const handleSmoothScroll = (e, href) => {
+  const handleSmoothScroll = (e, href) => {
     e.preventDefault();
     const section = document.querySelector(href);
     if (section) {
-      const navbarHeight = 80; 
-      const elementPosition = section.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-
+      const offsetTop = section.offsetTop - 100;
       window.scrollTo({
-        top: offsetPosition,
+        top: offsetTop,
         behavior: "smooth"
       });
-      
       setActive(href);
       setIsMobileMenuOpen(false);
     }
   };
 
+  const navbarVariants = {
+    initial: { y: -100, opacity: 0, x: "-50%" },
+    animate: { 
+      y: scrolled ? 20 : 30, 
+      opacity: 1, 
+      x: "-50%",
+      scale: scrolled ? 0.9 : 1,
+      transition: { duration: 0.6, type: "spring", stiffness: 100, damping: 20 }
+    },
+  };
+
   return (
-    <motion.nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-slate-900/90 backdrop-blur-lg shadow-lg"
-          : "bg-transparent"
-      }`}
-      initial={{ opacity: 0, y: -40 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, ease: "easeOut" },
-      }}
-    >
-      <div className="flex justify-between items-center px-6 md:px-12 h-20">
-        {/* Logo / Greeting */}
-        <motion.div whileHover={{ scale: 1.05 }} className="min-w-[200px]">
-          <span className="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-500 to-cyan-400  bg-clip-text text-transparent select-none">
-            <Typewriter
-              words={["Hello!", "नमस्ते!", "Bonjour!", "Hola!"]}
-              loop
-              cursor
-              cursorStyle="|"
-              typeSpeed={100}
-              deleteSpeed={50}
-              delaySpeed={1000}
-            />
-          </span>
-        </motion.div>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex flex-1 justify-center items-center gap-8">
-          {navLinks.map((link) => (
-            <motion.a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleSmoothScroll(e, link.href)}
-              className={`text-xl font-medium transition-all duration-300 ${
-                active === link.href
-                  ? "text-white"
-                  : "text-gray-400 hover:text-white"
-              } relative`}
-            >
-              {link.name}
-              {active === link.href && (
-                <motion.div
-                  layoutId="underline"
-                  className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-indigo-500 to-cyan-400 rounded-full"
-                  transition={{ duration: 0.3 }}
-                />
-              )}
-            </motion.a>
-          ))}
-        </div>
-
-        {/* Social Icons */}
-        <div className="hidden md:flex gap-4 ">
-          {socialLinks.map((link, i) => (
-            <motion.a
-              key={i}
-              href={link.href}
-              target="_blank"
-              whileHover={{ scale: 1.2, color: link.hoverColor }}
-              className="text-gray-400 text-2xl"
-            >
-              {link.icon}
-            </motion.a>
-          ))}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <motion.button
-          className="md:hidden text-white text-3xl"
-          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          whileTap={{ scale: 0.9 }}
-        >
-          {isMobileMenuOpen ? <IoClose /> : <CiMenuFries />}
-        </motion.button>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            className="md:hidden flex flex-col items-center bg-slate-900/95 backdrop-blur-xl border-t border-slate-700 overflow-hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+    <>
+      <motion.nav
+        className="fixed left-1/2 z-[100] w-[90%] max-w-5xl"
+        variants={navbarVariants}
+        initial="initial"
+        animate="animate"
+      >
+        <div className={`
+          flex items-center justify-between px-6 py-3 rounded-full transition-all duration-300
+          ${scrolled 
+            ? "bg-[#030712]/80 backdrop-blur-xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)]" 
+            : "bg-transparent border border-transparent"
+          }
+        `}>
+          
+          {/* --- Logo Area --- */}
+          <motion.a 
+            href="#home"
+            className="relative group cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            onClick={(e) => handleSmoothScroll(e, "#home")}
           >
+            <span className="font-mono text-xl font-bold bg-gradient-to-r from-indigo-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+              &lt;Gagan /&gt;
+            </span>
+          </motion.a>
+
+          {/* --- Desktop Menu --- */}
+          <div className="hidden md:flex items-center gap-1 bg-[#0b1121]/50 backdrop-blur-md px-2 py-1.5 rounded-full border border-white/5">
             {navLinks.map((link) => (
-              <motion.a
+              <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleSmoothScroll(e, link.href)}
-                className={`text-gray-300 text-lg py-3 w-full text-center hover:bg-slate-800/50 transition-all ${
-                  active === link.href ? "text-white" : ""
-                }`}
-                whileHover={{ scale: 1.05 }}
+                className="relative px-4 py-2 text-sm font-medium transition-colors rounded-full text-gray-400 hover:text-white group"
               >
-                {link.name}
-              </motion.a>
+                {active === link.href && (
+                  <motion.div
+                    layoutId="active-pill"
+                    className="absolute inset-0 bg-white/10 rounded-full"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{link.name}</span>
+                
+                {/* Hover Glow */}
+                <div className="absolute inset-0 rounded-full bg-indigo-500/20 opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-300" />
+              </a>
             ))}
-            <div className="flex gap-6 py-4">
+          </div>
+
+          {/* --- Socials & Mobile Toggle --- */}
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-3">
               {socialLinks.map((link, i) => (
                 <motion.a
                   key={i}
                   href={link.href}
                   target="_blank"
-                  whileHover={{ scale: 1.2, color: link.hoverColor }}
-                  className="text-gray-400 text-2xl"
+                  rel="noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                  whileHover={{ scale: 1.2, rotate: 10, color: link.color }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   {link.icon}
                 </motion.a>
               ))}
             </div>
+
+            <motion.button
+              className="md:hidden text-2xl text-white p-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              whileTap={{ scale: 0.9 }}
+            >
+              {isMobileMenuOpen ? <IoClose /> : <CiMenuFries />}
+            </motion.button>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* --- Mobile Full Screen Menu --- */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="fixed inset-0 z-50 md:hidden bg-[#030712]/90 flex items-center justify-center"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              className="flex flex-col items-center gap-8 w-full px-8"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {navLinks.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleSmoothScroll(e, link.href)}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className={`text-3xl font-bold ${
+                    active === link.href ? "text-indigo-400" : "text-white/50"
+                  }`}
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+
+              <div className="flex gap-6 mt-8">
+                {socialLinks.map((link, i) => (
+                  <motion.a
+                    key={i}
+                    href={link.href}
+                    target="_blank"
+                    className="text-2xl text-gray-400 hover:text-white"
+                    whileHover={{ scale: 1.2, color: link.color }}
+                  >
+                    {link.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   );
 };
 
