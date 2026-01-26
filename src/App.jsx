@@ -18,8 +18,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate initial asset loading time for smoother 3D entry
-    const timer = setTimeout(() => setIsLoading(false), 2000);
+    // Reduced loading time slightly for better UX
+    const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -36,20 +36,13 @@ function App() {
 
   return (
     <>
-      {/* 1. Global Noise Overlay (Film Grain Effect) */}
-      <div className="fixed inset-0 z-[90] pointer-events-none opacity-[0.04] mix-blend-overlay">
-        <svg className="absolute inset-0 w-full h-full">
-          <filter id="noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noise)" />
-        </svg>
+      {/* OPTIMIZED: Static Noise Overlay using tiny background pattern instead of heavy SVG filter */}
+      <div className="fixed inset-0 z-[90] pointer-events-none opacity-[0.03] mix-blend-overlay">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150"></div>
       </div>
 
-      {/* 2. Magnetic Cursor */}
       <CustomCursor />
       
-      {/* 3. Notifications */}
       <ToastContainer 
         position="bottom-right"
         theme="dark"
@@ -62,46 +55,34 @@ function App() {
         }}
       />
 
-      {/* 4. Fixed 3D Background */}
       <BackgroundCanvas />
 
-      {/* 5. Smooth Scroll Wrapper */}
       <SmoothScroll>
         <div className="relative z-10 w-full overflow-hidden">
-          
           <Navbar />
-
           <main className="flex flex-col">
             <section id="home">
               <Home />
             </section>
-
             <section id="about">
               <About />
             </section>
-
             <section id="skills">
               <Skill />
             </section>
-
             <section id="experience">
               <Experience />
             </section>
-
             <section id="projects">
               <Project />
             </section>
-
             <section id="contact">
               <Contact />
             </section>
           </main>
-          
-          {/* Footer (Optional) */}
           <footer className="py-8 text-center text-gray-600 text-xs tracking-widest uppercase border-t border-white/5 bg-[#030712]">
             © {new Date().getFullYear()} Gagan. All Rights Reserved.
           </footer>
-
         </div>
       </SmoothScroll>
     </>

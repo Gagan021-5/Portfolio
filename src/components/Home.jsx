@@ -4,16 +4,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, MeshDistortMaterial, Sphere, Float } from "@react-three/drei";
 import { Typewriter } from "react-simple-typewriter";
 
-/**
- * Premium Liquid Chrome Sphere Component
- */
 function LiquidSphere() {
   const meshRef = useRef();
   const [hovered, setHover] = useState(false);
   
   useFrame((state) => {
     if (meshRef.current) {
-      // Rotate independently of the distortion for dynamic feel
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.2;
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
     }
@@ -26,13 +22,13 @@ function LiquidSphere() {
         onPointerOut={() => setHover(false)}
       >
         <MeshDistortMaterial
-          color={hovered ? "#4f46e5" : "#4338ca"} // Indigo color shift on hover
+          color={hovered ? "#4f46e5" : "#4338ca"}
           attach="material"
-          distort={0.45} // Stronger distortion for "liquid" look
-          speed={2.5} // Faster movement
-          roughness={0.1} // Glossy surface
-          metalness={0.9} // Chrome-like finish
-          emissive={hovered ? "#4f46e5" : "#1e1b4b"} // Inner glow
+          distort={0.45}
+          speed={2.5}
+          roughness={0.1}
+          metalness={0.9}
+          emissive={hovered ? "#4f46e5" : "#1e1b4b"}
           emissiveIntensity={0.2}
         />
       </Sphere>
@@ -47,14 +43,12 @@ const Home = () => {
     offset: ["start start", "end start"]
   });
 
-  // Parallax effects
   const y = useTransform(scrollYProgress, [0, 1], [0, 400]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   const words = ["Full Stack", "Creative", "Innovative", "Passionate"];
   const headlineWords = ["I", "am", "Gagan"];
 
-  // Animation Variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -81,12 +75,16 @@ const Home = () => {
       viewport={{ once: true }}
       variants={containerVariants}
     >
-      {/* --- 3D Background Layer --- */}
+      {/* 3D Background Layer - Optimized DPR */}
       <motion.div 
         className="absolute inset-0 z-0 opacity-70"
         style={{ y, opacity }}
       >
-        <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
+        <Canvas 
+          camera={{ position: [0, 0, 8], fov: 45 }}
+          dpr={[1, 1.5]} // Capped at 1.5 for performance
+          gl={{ antialias: false }} // Disabled antialias for speed
+        >
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 5]} intensity={2} color="#8b5cf6" />
           <directionalLight position={[-10, -10, -5]} intensity={2} color="#06b6d4" />
@@ -97,13 +95,10 @@ const Home = () => {
         </Canvas>
       </motion.div>
 
-      {/* --- Ambient Background Glow --- */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
-      {/* --- Main Content --- */}
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center">
         
-        {/* Profile Photo (Glassmorphic & Animated) */}
         <motion.div
           className="relative group mb-8 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full p-[2px] bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-400"
           variants={itemVariants}
@@ -119,7 +114,6 @@ const Home = () => {
           </div>
         </motion.div>
 
-        {/* Headline */}
         <div className="space-y-4 mb-8">
           <motion.div 
             className="flex flex-wrap justify-center gap-x-3 sm:gap-x-4 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter"
@@ -136,7 +130,6 @@ const Home = () => {
             ))}
           </motion.div>
 
-          {/* Typewriter Subheading */}
           <motion.div 
             className="text-xl sm:text-2xl md:text-3xl font-medium text-indigo-200/80 font-mono tracking-wide"
             variants={itemVariants}
@@ -158,7 +151,6 @@ const Home = () => {
           </motion.div>
         </div>
 
-        {/* CTA Buttons (Premium Glass Style) */}
         <motion.div 
           className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto mt-6"
           variants={itemVariants}
@@ -189,7 +181,6 @@ const Home = () => {
 
       </div>
 
-      {/* --- Scroll Indicator --- */}
       <motion.div 
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 text-[10px] tracking-[0.3em] uppercase opacity-70"
         initial={{ opacity: 0 }}
