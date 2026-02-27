@@ -1,4 +1,5 @@
-import netflix from "../assets/n22.png";
+import internvue from "../assets/internvue.png";
+import opensight from "../assets/opensight.png";
 import garc from "../assets/gamearc.png";
 import moviesai from "../assets/moviescam.png";
 import houseprice from "../assets/houseprice.png"
@@ -54,12 +55,20 @@ const project = [
     skills: ["React", "Gemini 2.5 Pro", "Express", "API Ninjas (Nutrition)"],
   },
   {
-    url: "https://moviestreammminng-phi.vercel.app/",
-    img: netflix,
-    title: "Netflix Clone",
+    url: "https://internvue.onrender.com",
+    img: internvue,
+    title: "InternVue",
     description:
-      "A visually accurate and responsive Netflix clone built with vanilla HTML, CSS, and JavaScript. Replicates core UI features like carousels, interactive cards, and mobile-friendly design with a focus on performance.",
-    skills: ["HTML", "Tailwind CSS", "JavaScript"],
+      "The Internship Hub Built for Professional Outcomes. InternVue combines verified local startup internships with trusted global opportunities, giving students a single environment to discover, evaluate, and act with absolute confidence.",
+    skills: ["MongoDB", "Express.js", "React", "Node.js", "Google Gemini AI", "Firebase"],
+  },
+  {
+    url: "https://visionfront.onrender.com",
+    img: opensight,
+    title: "OpenSight",
+    description:
+      "Vision Therapy Reimagined. Clinically inspired vision exercises transformed into browser games.",
+    skills: ["React", "Tavily AI", "Groq AI", "MongoDB", "Node.js"],
   },
     {
     url: "https://github.com/Gagan021-5/IntentYoutube",
