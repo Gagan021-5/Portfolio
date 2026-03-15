@@ -2,9 +2,10 @@ import internvue from "../assets/internvue.png";
 import opensight from "../assets/opensight.png";
 import garc from "../assets/gamearc.png";
 import moviesai from "../assets/moviescam.png";
-import houseprice from "../assets/houseprice.png"
+import houseprice from "../assets/houseprice.png";
 import nutrition from "../assets/nutrivigil.png";
-import intentyt from "../assets/extension.png"
+import intentyt from "../assets/extension.png";
+import sehat from "../assets/sehat.png";
 const project = [
   {
     url: "https://gamearc-frontend2.onrender.com/",
@@ -60,7 +61,14 @@ const project = [
     title: "InternVue",
     description:
       "The Internship Hub Built for Professional Outcomes. InternVue combines verified local startup internships with trusted global opportunities, giving students a single environment to discover, evaluate, and act with absolute confidence.",
-    skills: ["MongoDB", "Express.js", "React", "Node.js", "Google Gemini AI", "Firebase"],
+    skills: [
+      "MongoDB",
+      "Express.js",
+      "React",
+      "Node.js",
+      "Google Gemini AI",
+      "Firebase",
+    ],
   },
   {
     url: "https://visionfront.onrender.com",
@@ -70,7 +78,23 @@ const project = [
       "Vision Therapy Reimagined. Clinically inspired vision exercises transformed into browser games.",
     skills: ["React", "Tavily AI", "Groq AI", "MongoDB", "Node.js"],
   },
-    {
+  {
+    url: "https://sehat-9mfh.onrender.com",
+    img: sehat,
+    title: "SehatSaathi",
+    description:
+      "SehatSaathi is a production-grade, AI-first healthtech platform that delivers intelligent clinical triage, preventive screening, prescription intelligence, and rural outreach — in the patient's own language.",
+    skills: [
+      "React",
+      "Gemini AI",
+      "RAG Pipeline",
+      "ElevenLabs AI",
+      "Groq AI",
+      "MongoDB",
+      "Node.js",
+    ],
+  },
+  {
     url: "https://github.com/Gagan021-5/IntentYoutube",
     img: intentyt,
     title: "IntentYoutube",
