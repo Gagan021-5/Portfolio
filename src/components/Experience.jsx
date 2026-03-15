@@ -19,14 +19,7 @@ const experiences = [
     icon: <FaTrophy />,
     type: "hackathon",
   },
-  {
-    title: "Online Round Qualifier",
-    company: "Code Veda Hackathon",
-    date: "2025",
-    desc: "Qualified for the online round among 6000+ participants, showcasing strong problem-solving skills.",
-    icon: <FaCode />,
-    type: "hackathon",
-  },
+
   {
     title: "SIH 2025 Shortlisted",
     company: "Smart India Hackathon",
@@ -35,32 +28,42 @@ const experiences = [
     icon: <FaTrophy />,
     type: "hackathon",
   },
+ {
+    title: "Winner (1st Prize)",
+    company: "Praxis 2.0 AI/ML Hackathon",
+    date: "2026",
+    desc: "Secured the top position among 400+ teams in a nationwide online hackathon.",
+    icon: <FaTrophy />, 
+    type: "hackathon",
+  },
 ];
 
 const Experience = () => {
   const containerRef = useRef(null);
-  
+
   // Track scroll progress relative to this section
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ["start center", "end center"],
   });
 
   // Smooth out the progress bar animation
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   return (
-    <section id="experience" className="py-20 relative min-h-screen overflow-hidden bg-[#030712]">
-      
+    <section
+      id="experience"
+      className="py-20 relative min-h-screen overflow-hidden bg-[#030712]"
+    >
       {/* --- Premium Background Effects --- */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none opacity-20" />
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-      
+
       {/* --- Content --- */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -77,14 +80,13 @@ const Experience = () => {
       </motion.div>
 
       <div ref={containerRef} className="max-w-5xl mx-auto px-4 relative z-10">
-        
         {/* --- THE JOURNEY LINES --- */}
-        
+
         {/* 1. Base Static Line (Faint Track) */}
         <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 transform md:-translate-x-1/2" />
 
         {/* 2. Animated Progress Line (Glowing) */}
-        <motion.div 
+        <motion.div
           style={{ scaleY, originY: 0 }}
           className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-indigo-500 via-purple-500 to-cyan-500 transform md:-translate-x-1/2 shadow-[0_0_15px_rgba(168,85,247,0.6)] z-0"
         />
@@ -103,16 +105,16 @@ const Experience = () => {
             >
               {/* Timeline Dot (Lights up when in view) */}
               <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[#030712] border-2 border-indigo-500 rounded-full transform -translate-x-1/2 md:translate-x-[-50%] z-20 shadow-[0_0_10px_rgba(99,102,241,0.5)]">
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="absolute inset-0 bg-indigo-400 rounded-full" 
+                  className="absolute inset-0 bg-indigo-400 rounded-full"
                 />
               </div>
 
               <div className="w-full md:w-5/12 pl-12 md:pl-0">
-                <motion.div 
+                <motion.div
                   className="p-6 rounded-2xl bg-[#0b1121]/80 backdrop-blur-md border border-white/5 hover:border-indigo-500/30 transition-all duration-300 shadow-lg group hover:shadow-[0_0_30px_rgba(79,70,229,0.15)] relative overflow-hidden"
                   whileHover={{ y: -5 }}
                 >
@@ -120,13 +122,19 @@ const Experience = () => {
 
                   <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="text-xl text-cyan-400 bg-cyan-900/20 p-2 rounded-lg">{exp.icon}</span>
-                      <span className="text-xs font-mono tracking-widest text-indigo-300/80 uppercase">{exp.date}</span>
+                      <span className="text-xl text-cyan-400 bg-cyan-900/20 p-2 rounded-lg">
+                        {exp.icon}
+                      </span>
+                      <span className="text-xs font-mono tracking-widest text-indigo-300/80 uppercase">
+                        {exp.date}
+                      </span>
                     </div>
                     <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
                       {exp.title}
                     </h3>
-                    <p className="text-sm font-semibold text-gray-400 mb-3">{exp.company}</p>
+                    <p className="text-sm font-semibold text-gray-400 mb-3">
+                      {exp.company}
+                    </p>
                     <p className="text-gray-400/80 text-sm leading-relaxed">
                       {exp.desc}
                     </p>
