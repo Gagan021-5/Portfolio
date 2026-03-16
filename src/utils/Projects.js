@@ -8,6 +8,22 @@ import intentyt from "../assets/extension.png";
 import sehat from "../assets/sehat.png";
 const project = [
   {
+    url: "https://sehat-9mfh.onrender.com",
+    img: sehat,
+    title: "SehatSaathi",
+    description:
+      "SehatSaathi is a production-grade, AI-first healthtech platform that delivers intelligent clinical triage, preventive screening, prescription intelligence, and rural outreach — in the patient's own language.",
+    skills: [
+      "React",
+      "Gemini AI",
+      "RAG Pipeline",
+      "ElevenLabs AI",
+      "Groq AI",
+      "MongoDB",
+      "Node.js",
+    ],
+  },
+  {
     url: "https://gamearc-frontend2.onrender.com/",
     img: garc,
     title: "GameArc",
@@ -79,19 +95,19 @@ const project = [
     skills: ["React", "Tavily AI", "Groq AI", "MongoDB", "Node.js"],
   },
   {
-    url: "https://sehat-9mfh.onrender.com",
-    img: sehat,
-    title: "SehatSaathi",
+    url: "https://github.com/Gagan021-5/BillBiopsy",
+    img: "billBiopsyImg",
+    title: "BillBiopsy",
     description:
-      "SehatSaathi is a production-grade, AI-first healthtech platform that delivers intelligent clinical triage, preventive screening, prescription intelligence, and rural outreach — in the patient's own language.",
+      "An AI-driven social platform designed to help patients navigate and analyze complex hospital bills. It utilizes OCR and LLMs to identify potential overcharges against reference benchmarks and empowers users by auto-generating formal, legally-toned complaint PDFs to promote healthcare transparency.",
     skills: [
       "React",
-      "Gemini AI",
-      "RAG Pipeline",
-      "ElevenLabs AI",
-      "Groq AI",
-      "MongoDB",
       "Node.js",
+      "Google Gemini Vision API",
+      "LangChain",
+      "Groq LLM",
+      "pdf-lib",
+      "WebRTC",
     ],
   },
   {
