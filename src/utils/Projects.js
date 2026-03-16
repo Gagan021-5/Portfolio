@@ -6,6 +6,7 @@ import houseprice from "../assets/houseprice.png";
 import nutrition from "../assets/nutrivigil.png";
 import intentyt from "../assets/extension.png";
 import sehat from "../assets/sehat.png";
+import bill from "../assets/bill.png"
 const project = [
   {
     url: "https://sehat-9mfh.onrender.com",
@@ -24,7 +25,7 @@ const project = [
     ],
   },
   {
-    url: "https://gamearc-frontend2.onrender.com/",
+    url: "https://gamearc-frontend2.onrender.com",
     img: garc,
     title: "GameArc",
     description:
@@ -40,7 +41,7 @@ const project = [
     ],
   },
   {
-    url: "https://moviesfront-q1wi.onrender.com/",
+    url: "https://moviesfront-q1wi.onrender.com",
     img: moviesai,
     title: "Movies Cameo",
     description:
@@ -64,7 +65,7 @@ const project = [
   },
 
   {
-    url: "http://nutf.onrender.com/",
+    url: "http://nutf.onrender.com",
     img: nutrition,
     title: "NutriVigil",
     description:
@@ -96,7 +97,7 @@ const project = [
   },
   {
     url: "https://github.com/Gagan021-5/BillBiopsy",
-    img: "billBiopsyImg",
+    img: bill,
     title: "BillBiopsy",
     description:
       "An AI-driven social platform designed to help patients navigate and analyze complex hospital bills. It utilizes OCR and LLMs to identify potential overcharges against reference benchmarks and empowers users by auto-generating formal, legally-toned complaint PDFs to promote healthcare transparency.",
