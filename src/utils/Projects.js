@@ -4,7 +4,7 @@ import garc from "../assets/gamearc.png";
 import moviesai from "../assets/moviescam.png";
 import houseprice from "../assets/houseprice.png";
 import nutrition from "../assets/nutrivigil.png";
-import intentyt from "../assets/extension.png";
+import intentyt from "../assets/intentyt.png";
 import sehat from "../assets/sehat.png";
 import bill from "../assets/bill.png"
 const project = [
