@@ -5,7 +5,7 @@ import { FaBriefcase, FaTrophy, FaCode } from "react-icons/fa";
 const experiences = [
   {
     title: "Frontend Developer Intern",
-    company: "Creatibl Solution",
+    company: "Creatibl Solution Pvt Limited",
     date: "April 2025 - July 2025",
     desc: "Developed responsive and interactive user interfaces using React.js and Tailwind CSS. Optimized application performance for maximum speed.",
     icon: <FaBriefcase />,
