@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 // Components
 import Home from "./components/Home";
@@ -13,45 +14,31 @@ import Contact from "./components/Contact";
 import BackgroundCanvas from "./components/BackgroundCanvas";
 import SmoothScroll from "./components/SmoothScroll";
 import CustomCursor from "./components/CustomCursor";
+import BootSequence from "./components/BootSequence";
 
-function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Reduced loading time slightly for better UX
-    const timer = setTimeout(() => setIsLoading(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#030712]">
-        <div className="w-16 h-16 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mb-4" />
-        <p className="text-indigo-400 font-mono text-sm tracking-[0.3em] animate-pulse">
-          INITIALIZING SYSTEM
-        </p>
-      </div>
-    );
-  }
-
+function PortfolioShell() {
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+    >
       {/* OPTIMIZED: Static Noise Overlay using tiny background pattern instead of heavy SVG filter */}
       <div className="fixed inset-0 z-[90] pointer-events-none opacity-[0.03] mix-blend-overlay">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150"></div>
       </div>
 
       <CustomCursor />
-      
-      <ToastContainer 
+
+      <ToastContainer
         position="bottom-right"
         theme="dark"
-        toastStyle={{ 
-          backgroundColor: 'rgba(3, 7, 18, 0.9)', 
-          backdropFilter: 'blur(10px)', 
-          border: '1px solid rgba(255,255,255,0.1)',
-          color: '#fff',
-          fontSize: '0.9rem'
+        toastStyle={{
+          backgroundColor: "rgba(3, 7, 18, 0.9)",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          color: "#fff",
+          fontSize: "0.9rem",
         }}
       />
 
@@ -80,11 +67,28 @@ function App() {
               <Contact />
             </section>
           </main>
-          <footer className="py-8 text-center text-gray-600 text-xs tracking-widest uppercase border-t border-white/5 bg-[#030712]">
-            © {new Date().getFullYear()} Gagan. All Rights Reserved.
+          <footer className="bg-[#030712] py-8 text-center text-xs tracking-widest text-gray-600 uppercase border-t border-white/5">
+            &copy; {new Date().getFullYear()} Gagan. All Rights Reserved.
           </footer>
         </div>
       </SmoothScroll>
+    </motion.div>
+  );
+}
+
+function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showPortfolio, setShowPortfolio] = useState(false);
+
+  return (
+    <>
+      <AnimatePresence mode="wait" onExitComplete={() => setShowPortfolio(true)}>
+        {isLoading ? (
+          <BootSequence key="boot-sequence" onComplete={() => setIsLoading(false)} />
+        ) : null}
+      </AnimatePresence>
+
+      {showPortfolio ? <PortfolioShell /> : null}
     </>
   );
 }

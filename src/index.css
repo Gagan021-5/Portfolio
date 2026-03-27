@@ -17,6 +17,39 @@ html {
   scroll-behavior: smooth;
 }
 
+.boot-sequence-grid {
+  background-image:
+    linear-gradient(rgba(34, 211, 238, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129, 140, 248, 0.16) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.28;
+  transform: perspective(960px) rotateX(78deg) scale(1.4);
+  transform-origin: bottom center;
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 72%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 72%);
+  animation: bootGridShift 16s linear infinite;
+}
+
+.boot-sequence-scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.08) 0px,
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 3px,
+    transparent 8px
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.16;
+}
+
+@keyframes bootGridShift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 0 72px, 72px 0;
+  }
+}
 
 
 #liquid-ribbon {
@@ -58,5 +91,16 @@ html {
   }
   100% {
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-sequence-grid {
+    opacity: 0.2;
+    animation-duration: 28s;
+  }
+
+  .boot-sequence-scanlines {
+    opacity: 0.1;
   }
 }
