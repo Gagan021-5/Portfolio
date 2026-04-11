@@ -1,151 +1,154 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { FaBriefcase, FaTrophy, FaCode } from "react-icons/fa";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
-const experiences = [
+const experienceSlides = [
   {
-    title: "Frontend Developer Intern",
-    company: "Creatibl Solution Pvt Limited",
-    date: "April 2025 - July 2025",
-    desc: "Developed responsive and interactive user interfaces using React.js and Tailwind CSS. Optimized application performance for maximum speed.",
-    icon: <FaBriefcase />,
-    type: "work",
+    id: "exp-1",
+    eyebrow: "01",
+    heading: "Frontend Developer Intern",
+    subheading: "Creatibl Solution Pvt Limited",
+    rows: [
+      ["Role", "Frontend Developer Intern"],
+      ["Company", "Creatibl Solution Pvt Limited"],
+      ["Duration", "April 2025 - July 2025"],
+      ["Location", "Remote"],
+      ["Work Type", "Internship"],
+      ["Tech Stack", "React.js, Tailwind CSS, JavaScript"],
+      [
+        "Summary",
+        "Developed responsive and interactive user interfaces and optimized the application for faster performance.",
+      ],
+    ],
   },
   {
-    title: "National Qualifier (Top 250)",
-    company: "Code Clash 2.0 National Hackathon",
-    date: "2025",
-    desc: "Selected among in Online Round amoung Top 250 teams out of 4000+ participants nationwide. Demonstrated rapid prototyping skills.",
-    icon: <FaTrophy />,
-    type: "hackathon",
-  },
-
-  {
-    title: "SIH 2025 Shortlisted",
-    company: "Smart India Hackathon",
-    date: "2025",
-    desc: "Cleared internal college round and shortlisted to top 45 teams for the next stage of SIH 2025.",
-    icon: <FaTrophy />,
-    type: "hackathon",
-  },
- {
-    title: "Winner (1st Prize)",
-    company: "Praxis 2.0 AI/ML Hackathon",
-    date: "2026",
-    desc: "Secured the top position among 400+ teams in a nationwide online hackathon.",
-    icon: <FaTrophy />, 
-    type: "hackathon",
+    id: "exp-2",
+    eyebrow: "02",
+    heading: "UI Engineer Intern",
+    subheading: "NovaStack Labs",
+    rows: [
+      ["Role", "UI Engineer Intern"],
+      ["Company", "NovaStack Labs"],
+      ["Duration", "August 2025 - November 2025"],
+      ["Location", "Bangalore, India"],
+      ["Work Type", "Internship"],
+      ["Tech Stack", "React, TypeScript, Tailwind CSS, Figma"],
+      [
+        "Summary",
+        "Built dashboard flows, refined reusable components, and improved handoff quality between design and development teams.",
+      ],
+    ],
   },
 ];
 
 const Experience = () => {
-  const containerRef = useRef(null);
-
-  // Track scroll progress relative to this section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"],
-  });
-
-  // Smooth out the progress bar animation
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const [activeSlide, setActiveSlide] = useState(0);
+  const currentSlide = experienceSlides[activeSlide];
 
   return (
-    <section
-      id="experience"
-      className="py-20 relative min-h-screen overflow-hidden bg-[#030712]"
-    >
-      {/* --- Premium Background Effects --- */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none opacity-20" />
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-
-      {/* --- Content --- */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-center mb-20 relative z-10"
-      >
-        <h2 className="text-sm font-bold tracking-[0.2em] text-cyan-500 uppercase mb-3">
-          My Journey
-        </h2>
-        <h2 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-indigo-400 drop-shadow-sm">
-          Experience & <br /> Achievements
-        </h2>
-      </motion.div>
-
-      <div ref={containerRef} className="max-w-5xl mx-auto px-4 relative z-10">
-        {/* --- THE JOURNEY LINES --- */}
-
-        {/* 1. Base Static Line (Faint Track) */}
-        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 transform md:-translate-x-1/2" />
-
-        {/* 2. Animated Progress Line (Glowing) */}
+    <div className="relative py-20">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
         <motion.div
-          style={{ scaleY, originY: 0 }}
-          className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-indigo-500 via-purple-500 to-cyan-500 transform md:-translate-x-1/2 shadow-[0_0_15px_rgba(168,85,247,0.6)] z-0"
-        />
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-cyan-400">
+            Experience
+          </p>
+          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+            Work history in a clean, focused view
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
+            A dedicated experience section with manual slide navigation and transparent styling to keep the layout minimal.
+          </p>
+        </motion.div>
 
-        <div className="space-y-12 pt-12">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, type: "spring", stiffness: 50 }}
-              className={`relative flex items-center justify-between md:justify-normal ${
-                index % 2 === 0 ? "md:flex-row-reverse" : ""
-              }`}
-            >
-              {/* Timeline Dot (Lights up when in view) */}
-              <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-[#030712] border-2 border-indigo-500 rounded-full transform -translate-x-1/2 md:translate-x-[-50%] z-20 shadow-[0_0_10px_rgba(99,102,241,0.5)]">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="absolute inset-0 bg-indigo-400 rounded-full"
-                />
-              </div>
-
-              <div className="w-full md:w-5/12 pl-12 md:pl-0">
-                <motion.div
-                  className="p-6 rounded-2xl bg-[#0b1121]/80 backdrop-blur-md border border-white/5 hover:border-indigo-500/30 transition-all duration-300 shadow-lg group hover:shadow-[0_0_30px_rgba(79,70,229,0.15)] relative overflow-hidden"
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-xl text-cyan-400 bg-cyan-900/20 p-2 rounded-lg">
-                        {exp.icon}
-                      </span>
-                      <span className="text-xs font-mono tracking-widest text-indigo-300/80 uppercase">
-                        {exp.date}
-                      </span>
+        <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8">
+          <div className="w-full overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_24px_80px_rgba(2,6,23,0.22)]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide.id}
+                initial={{ opacity: 0, x: 32 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -32 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="w-full"
+              >
+                <div className="flex flex-col gap-6 p-6 sm:p-8">
+                  <div className="flex flex-col gap-2 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-[0.3em] text-cyan-400">
+                        Slide {currentSlide.eyebrow}
+                      </p>
+                      <h3 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
+                        {currentSlide.heading}
+                      </h3>
+                      <p className="mt-2 text-sm text-slate-300 sm:text-base">
+                        {currentSlide.subheading}
+                      </p>
                     </div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
-                      {exp.title}
-                    </h3>
-                    <p className="text-sm font-semibold text-gray-400 mb-3">
-                      {exp.company}
-                    </p>
-                    <p className="text-gray-400/80 text-sm leading-relaxed">
-                      {exp.desc}
+
+                    <p className="text-sm text-slate-400">
+                      {activeSlide + 1} / {experienceSlides.length}
                     </p>
                   </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
+
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full border-collapse text-left text-sm text-slate-200">
+                      <thead>
+                        <tr className="border-b border-white/10">
+                          <th className="w-44 px-4 py-4 font-semibold text-white sm:px-6">
+                            Field
+                          </th>
+                          <th className="px-4 py-4 font-semibold text-white sm:px-6">
+                            Details
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {currentSlide.rows.map(([label, value]) => (
+                          <tr key={label} className="border-b border-white/10 last:border-b-0">
+                            <th className="px-4 py-4 align-top text-xs font-medium uppercase tracking-[0.22em] text-cyan-300 sm:px-6">
+                              {label}
+                            </th>
+                            <td className="px-4 py-4 leading-7 text-slate-300 sm:px-6">
+                              {value}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div className="flex items-center justify-center gap-3" aria-label="Experience slide navigation">
+            {experienceSlides.map((slide, index) => {
+              const isActive = index === activeSlide;
+
+              return (
+                <button
+                  key={slide.id}
+                  type="button"
+                  aria-label={`Show experience slide ${index + 1}`}
+                  aria-pressed={isActive}
+                  onClick={() => setActiveSlide(index)}
+                  className={`h-3 w-3 rounded-full border transition-all duration-200 ${
+                    isActive
+                      ? "scale-125 border-cyan-400 shadow-[0_0_0_3px_rgba(34,211,238,0.12)]"
+                      : "border-white/35 hover:border-white/70"
+                  }`}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

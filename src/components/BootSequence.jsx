@@ -10,18 +10,18 @@ export default function BootSequence({ onComplete }) {
     const duration = 2200; // 2.2 seconds for a premium feel
     const interval = 20;
     let current = 0;
-    
+
     const timer = setInterval(() => {
       // Easing out the progress
       const remaining = 100 - current;
       const step = Math.max(0.5, remaining * 0.05);
-      
+
       current += step;
-      
+
       if (current >= 99.5) {
         setProgress(100);
         clearInterval(timer);
-        
+
         // Trigger exit animations
         setTimeout(() => setStage(1), 400); // brief pause at 100%
         setTimeout(onComplete, 1200); // 800ms for the exit animations
@@ -37,21 +37,21 @@ export default function BootSequence({ onComplete }) {
     <motion.div
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#030712] text-white overflow-hidden"
       initial={{ opacity: 1 }}
-      exit={{ 
-        opacity: 0, 
-        transition: { duration: 0.8, ease: "easeInOut" } 
+      exit={{
+        opacity: 0,
+        transition: { duration: 0.8, ease: "easeInOut" }
       }}
     >
       {/* Background glow aligned with theme */}
-      <motion.div 
+      <motion.div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"
-        animate={{ 
+        animate={{
           scale: stage === 1 ? 1.5 : [1, 1.1, 1],
           opacity: stage === 1 ? 0 : [0.5, 0.8, 0.5]
         }}
         transition={{ duration: stage === 1 ? 0.8 : 4, repeat: stage === 1 ? 0 : Infinity }}
       />
-      
+
       <div className="relative z-10 flex flex-col items-center">
         {/* Name Reveal */}
         <div className="overflow-hidden pb-4">
@@ -85,14 +85,14 @@ export default function BootSequence({ onComplete }) {
         {/* Minimalist Progress Indicator */}
         <AnimatePresence>
           {stage === 0 && (
-            <motion.div 
+            <motion.div
               className="mt-8 flex flex-col items-center gap-6"
               exit={{ opacity: 0, y: 20, filter: "blur(5px)" }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
               {/* Animated Line */}
               <div className="relative w-56 sm:w-72 h-[2px] bg-white/5 overflow-hidden rounded-full">
-                <motion.div 
+                <motion.div
                   className="absolute inset-y-0 left-0 bg-gradient-to-r from-indigo-600 via-cyan-400 to-white"
                   style={{ width: `${progress}%` }}
                   layoutId="progress"
