@@ -23,19 +23,14 @@ const experienceSlides = [
   {
     id: "exp-2",
     eyebrow: "02",
-    heading: "UI Engineer Intern",
-    subheading: "NovaStack Labs",
+    heading: "Full Stack AI Engineer ",
+    subheading: "RentPrompts",
     rows: [
-      ["Role", "UI Engineer Intern"],
-      ["Company", "NovaStack Labs"],
-      ["Duration", "August 2025 - November 2025"],
-      ["Location", "Bangalore, India"],
-      ["Work Type", "Internship"],
-      ["Tech Stack", "React, TypeScript, Tailwind CSS, Figma"],
-      [
-        "Summary",
-        "Built dashboard flows, refined reusable components, and improved handoff quality between design and development teams.",
-      ],
+      ["Role", "Full Stack AI Engineer Intern"],
+      ["Company", "RentPrompts"],
+      ["Employment Type", "Full-Time"],
+      ["Start Date", "April 8, 2026"],
+      ["Location", "Remote/Hybrid"],
     ],
   },
 ];
@@ -57,12 +52,9 @@ const Experience = () => {
           <p className="text-sm font-semibold uppercase tracking-[0.32em] text-cyan-400">
             Experience
           </p>
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            Work history in a clean, focused view
+          <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
+            Professional Journey
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
-            A dedicated experience section with manual slide navigation and transparent styling to keep the layout minimal.
-          </p>
         </motion.div>
 
         <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8">
@@ -137,7 +129,7 @@ const Experience = () => {
                   aria-label={`Show experience slide ${index + 1}`}
                   aria-pressed={isActive}
                   onClick={() => setActiveSlide(index)}
-                  className={`h-3 w-3 rounded-full border transition-all duration-200 ${
+                  className={`h-3 w-3 cursor-pointer rounded-full border transition-all duration-200 ${
                     isActive
                       ? "scale-125 border-cyan-400 shadow-[0_0_0_3px_rgba(34,211,238,0.12)]"
                       : "border-white/35 hover:border-white/70"

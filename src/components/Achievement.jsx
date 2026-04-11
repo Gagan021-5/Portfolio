@@ -1,6 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
-import { FaTrophy } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
 
 const achievements = [
   {
@@ -11,21 +10,23 @@ const achievements = [
       "Secured first place among 400+ teams in a nationwide online competition.",
     stat: "400+",
     statLabel: "Teams Beaten",
-    rank: "🥇",
+    rank: "1st",
     accentColor: "from-amber-400 to-yellow-500",
     glowColor: "rgba(251, 191, 36, 0.3)",
+    orgColor: "text-amber-300/90",
   },
   {
-    title: "National Qualifier (Top 250)",
-    organization: "Code Clash 2.0 National Hackathon",
-    year: "2025",
+    title: "National Space Hackathon Finalist",
+    organization: "Organized by IIT Delhi",
+    year: "2026",
     description:
-      "Selected among the top 250 teams from 4000+ nationwide participants during the online round.",
-    stat: "4000+",
-    statLabel: "Participants",
-    rank: "🏆",
-    accentColor: "from-indigo-400 to-cyan-400",
-    glowColor: "rgba(99, 102, 241, 0.3)",
+      "Finished in the top 10 among 750+ teams in the National Space Hackathon organized by IIT Delhi.",
+    stat: "750+",
+    statLabel: "Teams Participated",
+    rank: "Top 10",
+    accentColor: "from-cyan-300 via-sky-500 to-indigo-500",
+    glowColor: "rgba(59, 130, 246, 0.35)",
+    orgColor: "text-sky-300/90",
   },
   {
     title: "SIH 2025 Shortlisted",
@@ -35,13 +36,13 @@ const achievements = [
       "Cleared the internal college round and reached the top 45 teams advancing to the next stage.",
     stat: "Top 45",
     statLabel: "Teams Selected",
-    rank: "🎯",
+    rank: "Top 45",
     accentColor: "from-emerald-400 to-teal-400",
     glowColor: "rgba(52, 211, 153, 0.3)",
+    orgColor: "text-emerald-300/90",
   },
 ];
 
-// --- Animated Counter ---
 function AnimatedCounter({ value, suffix = "" }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -49,6 +50,7 @@ function AnimatedCounter({ value, suffix = "" }) {
 
   useEffect(() => {
     if (!isInView) return;
+
     const numericValue = parseInt(value.replace(/\D/g, ""), 10);
     if (isNaN(numericValue)) {
       setCount(value);
@@ -81,8 +83,7 @@ function AnimatedCounter({ value, suffix = "" }) {
   );
 }
 
-// --- Timeline Card ---
-function TimelineCard({ achievement, index, isLast }) {
+function TimelineCard({ achievement, index }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const isLeft = index % 2 === 0;
@@ -90,20 +91,15 @@ function TimelineCard({ achievement, index, isLast }) {
   return (
     <div
       ref={ref}
-      className={`relative flex items-center w-full ${
+      className={`relative flex w-full items-center ${
         isLeft ? "md:flex-row" : "md:flex-row-reverse"
-      } flex-col md:gap-0 gap-4`}
+      } flex-col gap-4 md:gap-0`}
     >
-      {/* Card */}
       <motion.div
         className={`w-full md:w-[calc(50%-2rem)] ${
           isLeft ? "md:pr-0" : "md:pl-0"
         }`}
-        initial={{
-          opacity: 0,
-          x: isLeft ? -60 : 60,
-          y: 20,
-        }}
+        initial={{ opacity: 0, x: isLeft ? -60 : 60, y: 20 }}
         animate={
           isInView
             ? { opacity: 1, x: 0, y: 0 }
@@ -115,44 +111,42 @@ function TimelineCard({ achievement, index, isLast }) {
           ease: [0.22, 1, 0.36, 1],
         }}
       >
-        <div className="relative group">
-          {/* Animated border glow on hover */}
+        <div className="group relative">
           <div
-            className={`absolute -inset-0.5 bg-gradient-to-r ${achievement.accentColor} rounded-2xl opacity-0 group-hover:opacity-30 blur transition-opacity duration-500`}
+            className={`absolute -inset-0.5 rounded-2xl bg-gradient-to-r ${achievement.accentColor} opacity-0 blur transition-opacity duration-500 group-hover:opacity-30`}
           />
 
-          <div className="relative bg-[#0b1121]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl group-hover:border-white/20 transition-colors duration-300">
-            {/* Top row: rank + year */}
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-2xl">{achievement.rank}</span>
-              <span className="px-3 py-1 bg-white/5 rounded-full text-xs font-mono text-gray-400 border border-white/10">
+          <div className="relative rounded-2xl border border-white/10 bg-[#0b1121]/80 p-6 shadow-2xl backdrop-blur-xl transition-colors duration-300 group-hover:border-white/20 sm:p-8">
+            <div className="mb-4 flex items-center justify-between">
+              <span className="text-lg font-semibold tracking-wide text-white">
+                {achievement.rank}
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-mono text-gray-400">
                 {achievement.year}
               </span>
             </div>
 
-            {/* Title */}
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-1 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-cyan-400 transition-all duration-300">
+            <h3
+              className={`mb-1 text-xl font-bold text-white transition-all duration-300 group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:text-transparent sm:text-2xl ${achievement.accentColor}`}
+            >
               {achievement.title}
             </h3>
 
-            {/* Organization */}
-            <p className="text-sm font-medium text-cyan-400/80 mb-4">
+            <p className={`mb-4 text-sm font-medium ${achievement.orgColor}`}>
               {achievement.organization}
             </p>
 
-            {/* Description */}
-            <p className="text-gray-400 text-sm leading-relaxed mb-5">
+            <p className="mb-5 text-sm leading-relaxed text-gray-400">
               {achievement.description}
             </p>
 
-            {/* Stat counter */}
-            <div className="pt-4 border-t border-white/5 flex items-end gap-2">
+            <div className="flex items-end gap-2 border-t border-white/5 pt-4">
               <span
-                className={`text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${achievement.accentColor}`}
+                className={`bg-gradient-to-r bg-clip-text text-3xl font-extrabold text-transparent ${achievement.accentColor}`}
               >
                 <AnimatedCounter value={achievement.stat} />
               </span>
-              <span className="text-xs text-gray-500 uppercase tracking-wider font-medium pb-1">
+              <span className="pb-1 text-xs font-medium uppercase tracking-wider text-gray-500">
                 {achievement.statLabel}
               </span>
             </div>
@@ -160,20 +154,21 @@ function TimelineCard({ achievement, index, isLast }) {
         </div>
       </motion.div>
 
-      {/* Center Timeline Dot - Desktop */}
-      <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10 flex-col items-center">
+      <div className="absolute left-1/2 z-10 hidden -translate-x-1/2 md:flex flex-col items-center">
         <motion.div
           className="relative"
           initial={{ scale: 0 }}
           animate={isInView ? { scale: 1 } : { scale: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, type: "spring", stiffness: 200 }}
+          transition={{
+            duration: 0.5,
+            delay: 0.1,
+            type: "spring",
+            stiffness: 200,
+          }}
         >
-          {/* Outer glow ring */}
           <motion.div
             className="absolute -inset-2 rounded-full"
-            style={{
-              boxShadow: `0 0 20px ${achievement.glowColor}`,
-            }}
+            style={{ boxShadow: `0 0 20px ${achievement.glowColor}` }}
             animate={
               isInView
                 ? {
@@ -187,14 +182,12 @@ function TimelineCard({ achievement, index, isLast }) {
             }
             transition={{ duration: 2, repeat: Infinity }}
           />
-          {/* Inner dot */}
           <div
-            className={`w-4 h-4 rounded-full bg-gradient-to-r ${achievement.accentColor} border-4 border-[#030712] shadow-lg`}
+            className={`h-4 w-4 rounded-full border-4 border-[#030712] bg-gradient-to-r ${achievement.accentColor} shadow-lg`}
           />
         </motion.div>
       </div>
 
-      {/* Spacer for opposite side */}
       <div className="hidden md:block md:w-[calc(50%-2rem)]" />
     </div>
   );
@@ -208,13 +201,11 @@ const Achievement = () => {
   });
 
   return (
-    <div className="py-20 relative overflow-hidden">
-      {/* Background glows */}
-      <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-amber-600/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-600/5 rounded-full blur-[120px] pointer-events-none" />
+    <div className="relative overflow-hidden py-20">
+      <div className="pointer-events-none absolute top-20 right-0 h-[400px] w-[400px] rounded-full bg-amber-600/5 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-indigo-600/5 blur-[120px]" />
 
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -233,36 +224,31 @@ const Achievement = () => {
           </p>
         </motion.div>
 
-        {/* Timeline */}
         <div ref={timelineRef} className="relative">
-          {/* Vertical connector line - Desktop */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-[2px]">
+          <div className="absolute left-1/2 top-0 bottom-0 hidden w-[2px] -translate-x-1/2 md:block">
             <motion.div
-              className="w-full h-full bg-gradient-to-b from-indigo-500/40 via-cyan-500/20 to-transparent origin-top"
+              className="h-full w-full origin-top bg-gradient-to-b from-indigo-500/40 via-cyan-500/20 to-transparent"
               initial={{ scaleY: 0 }}
               animate={isTimelineInView ? { scaleY: 1 } : { scaleY: 0 }}
               transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
 
-          {/* Mobile connector line */}
-          <div className="md:hidden absolute left-6 top-0 bottom-0 w-[2px]">
+          <div className="absolute left-6 top-0 bottom-0 w-[2px] md:hidden">
             <motion.div
-              className="w-full h-full bg-gradient-to-b from-indigo-500/40 via-cyan-500/20 to-transparent origin-top"
+              className="h-full w-full origin-top bg-gradient-to-b from-indigo-500/40 via-cyan-500/20 to-transparent"
               initial={{ scaleY: 0 }}
               animate={isTimelineInView ? { scaleY: 1 } : { scaleY: 0 }}
               transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
 
-          {/* Cards */}
           <div className="flex flex-col gap-12 md:gap-16">
             {achievements.map((achievement, index) => (
               <TimelineCard
                 key={achievement.title}
                 achievement={achievement}
                 index={index}
-                isLast={index === achievements.length - 1}
               />
             ))}
           </div>
