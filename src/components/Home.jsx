@@ -153,7 +153,7 @@ const Home = () => {
 
         <motion.div 
           className="flex flex-col sm:flex-row gap-5 w-full sm:w-auto mt-6"
-          variants={itemVariants}
+          variants={itemVariants} 
         >
           <a
             href="https://drive.google.com/file/d/1tw_5KIv2Kff_7hU-Jdipe2jWsU1yj_O4/view?usp=sharing"
