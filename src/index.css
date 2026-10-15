@@ -1,141 +1,150 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap');
+
+/* --- Cabinet Grotesk Font Declarations --- */
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('./assets/fonts/CabinetGrotesk-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('./assets/fonts/CabinetGrotesk-Extralight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('./assets/fonts/CabinetGrotesk-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('./assets/fonts/CabinetGrotesk-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('./assets/fonts/CabinetGrotesk-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('./assets/fonts/CabinetGrotesk-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('./assets/fonts/CabinetGrotesk-Extrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('./assets/fonts/CabinetGrotesk-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 @import "tw-animate-css";
+
+@theme {
+  --font-sans: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-cabinet: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-signature: 'Caveat', cursive;
+}
+
+:root {
+  --bg-primary: #F8F7F4;
+  --text-primary: #0A0A0A;
+  --accent-gold: #F4A836;
+}
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Quicksand", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow-x: hidden;
-
-  background: linear-gradient(to bottom, #030712, #0b1120);
-  color: #e0e0ff;
+  background-color: #F8F7F4;
+  color: #0A0A0A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
   scroll-behavior: smooth;
+  font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #F8F7F4;
 }
 
-.boot-sequence-grid {
-  background-image:
-    linear-gradient(rgba(34, 211, 238, 0.16) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(129, 140, 248, 0.16) 1px, transparent 1px);
-  background-size: 72px 72px;
-  opacity: 0.28;
-  transform: perspective(960px) rotateX(78deg) scale(1.4);
-  transform-origin: bottom center;
-  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 72%);
-  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent 72%);
-  animation: bootGridShift 16s linear infinite;
-}
-
-.boot-sequence-scanlines {
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.08) 0px,
-    rgba(255, 255, 255, 0.08) 1px,
-    transparent 3px,
-    transparent 8px
-  );
-  mix-blend-mode: soft-light;
-  opacity: 0.16;
-}
-
-@keyframes bootGridShift {
-  from {
-    background-position: 0 0, 0 0;
-  }
-  to {
-    background-position: 0 72px, 72px 0;
-  }
-}
-
-
-#liquid-ribbon {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 260px;
-  height: 260px;
-  pointer-events: none;
-  z-index: 50;
-
-  mix-blend-mode: lighten;
-  filter: blur(80px);
-  opacity: 0.85;
-
-  border-radius: 50%;
-
-  background: conic-gradient(
-    from 0deg,
-    #1e3a8a,  /* deep blue */
-    #0ea5e9,  /* sky cyan */
-    #000000,  /* deep black */
-    #1e40af,  /* darker indigo */
-    #020617   /* almost black */
-  );
-
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out;
-
-  animation: ribbonPulse 6s ease-in-out infinite;
-}
-
-@keyframes ribbonPulse {
+/* --- Marquee Animation --- */
+@keyframes marquee {
   0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.25);
+    transform: translateX(0%);
   }
   100% {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateX(-50%);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .boot-sequence-grid {
-    opacity: 0.2;
-    animation-duration: 28s;
-  }
-
-  .boot-sequence-scanlines {
-    opacity: 0.1;
-  }
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
 }
 
-/* --- Custom Scrollbar --- */
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite reverse;
+}
+
+/* --- Clean Custom Scrollbar --- */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: #F8F7F4;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(10, 10, 10, 0.25);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.5);
+  background: rgba(10, 10, 10, 0.45);
 }
 
-/* --- Text Selection --- */
+/* --- Text Selection in Theme Accent --- */
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
-  color: #fff;
+  background: #F4A836;
+  color: #0A0A0A;
 }
 
-/* --- Navbar Logo Gradient Animation --- */
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.animate-gradient {
-  animation: gradient 3s ease infinite;
+/* --- Signature Font Utility --- */
+.font-signature {
+  font-family: 'Caveat', cursive;
 }

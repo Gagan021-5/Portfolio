@@ -13,7 +13,7 @@ const project = [
     img: sehat,
     title: "SehatSaathi",
     description:
-      "SehatSaathi is a production-grade, AI-first healthtech platform that delivers intelligent clinical triage, preventive screening, prescription intelligence, and rural outreach — in the patient's own language.",
+      "An AI healthcare platform for clinical triage, preventive screening, and prescription analysis in local Indian languages. Built with React, Node.js, and Gemini AI.",
     skills: [
       "React",
       "Gemini AI",
@@ -29,7 +29,7 @@ const project = [
     img: garc,
     title: "GameArc",
     description:
-      "A complete gaming e-commerce platform where users can browse and purchase games. Features include product listings, filtering by category, user authentication, and Stripe payment integration. Built with a scalable full-stack architecture and mobile-friendly design.",
+      "Gaming store with category filters, user auth, and Stripe checkout. Built with React, Node.js, and MongoDB.",
     skills: [
       "React",
       "Node.js",
@@ -45,7 +45,7 @@ const project = [
     img: moviesai,
     title: "Movies Cameo",
     description:
-      "An AI-powered movie recommender web app that suggests movies based on user preferences using Gemini API for smart recommendations and OMDB API for real movie data. Features advanced filtering, search, and detailed movie pages with a modern, responsive design.",
+      "Movie discovery app using Gemini API for tailored recommendations and OMDB API for live metadata. Built with React and Express.",
     skills: [
       "React",
       "Node.js",
@@ -60,7 +60,7 @@ const project = [
     img: houseprice,
     title: "House Price Predictor",
     description:
-      "Developed a predictive model using linear regression and feature engineering to forecast house prices.Achieved 81% accuracy by optimizing key features and applying machine learning techniques.",
+      "Machine learning model forecasting real estate prices with 81% accuracy. Built with Flask, Scikit-Learn, and React.",
     skills: ["React", "Tailwind", "Flask", "Scikit-Learn"],
   },
 
@@ -69,7 +69,7 @@ const project = [
     img: nutrition,
     title: "NutriVigil",
     description:
-      "Architected a privacy-first health scanner integrating Gemini 2.5 Pro and verified data streams, achieving sub-second latency and eliminating AI hallucinations for sensitive dietary queries.",
+      "Diet and health scanner using Gemini 2.5 Pro with verified nutrition data. Delivers fast answers with zero prompt hallucination.",
     skills: ["React", "Gemini 2.5 Pro", "Express", "API Ninjas (Nutrition)"],
   },
   {
@@ -77,7 +77,7 @@ const project = [
     img: internvue,
     title: "InternVue",
     description:
-      "The Internship Hub Built for Professional Outcomes. InternVue combines verified local startup internships with trusted global opportunities, giving students a single environment to discover, evaluate, and act with absolute confidence.",
+      "Internship platform connecting students with verified startup roles. Built with React, Node.js, and Firebase.",
     skills: [
       "MongoDB",
       "Express.js",
@@ -92,7 +92,7 @@ const project = [
     img: opensight,
     title: "OpenSight",
     description:
-      "Vision Therapy Reimagined. Clinically inspired vision exercises transformed into browser games.",
+      "Browser games designed for clinical vision therapy exercises. Built with React and Groq AI.",
     skills: ["React", "Tavily AI", "Groq AI", "MongoDB", "Node.js"],
   },
   {
@@ -100,7 +100,7 @@ const project = [
     img: bill,
     title: "BillBiopsy",
     description:
-      "An AI-driven social platform designed to help patients navigate and analyze complex hospital bills. It utilizes OCR and LLMs to identify potential overcharges against reference benchmarks and empowers users by auto-generating formal, legally-toned complaint PDFs to promote healthcare transparency.",
+      "Analyzes medical bills with OCR and LLMs to spot overcharges against standard benchmarks, then generates dispute PDFs.",
     skills: [
       "React",
       "Node.js",
@@ -116,7 +116,7 @@ const project = [
     img: intentyt,
     title: "IntentYoutube",
     description:
-      "Watch YouTube with intent by controlling recommendations, shorts, and distractions without affecting the video you choose.",
+      "Chrome extension that blocks YouTube shorts, feeds, and recommendations to keep your focus on the video you searched for.",
     skills: ["React", "Chrome Extension APIs"],
   },
 ];

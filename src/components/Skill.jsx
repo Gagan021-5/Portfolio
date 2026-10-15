@@ -1,9 +1,5 @@
-import React, { useMemo, useRef, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Text, Float, OrbitControls, Image, Billboard, Sparkles } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import { motion } from "framer-motion";
-import * as THREE from "three";
+import React, { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Asset Imports
 import htmlsvg from "../assets/html-5-svgrepo-com.svg";
@@ -28,224 +24,121 @@ import flask from "../assets/Flask.svg";
 import vscode from "../assets/vscode.svg";
 import Fastapi from "../assets/FastAPI.svg";
 
-const skills = [
-  { name: "HTML", icon: htmlsvg },
-  { name: "CSS", icon: csssvg },
-  { name: "JavaScript", icon: jssvg },
-  { name: "React", icon: reactsvg },
-  { name: "Tailwind", icon: tailwindsvg },
-  { name: "Next.js", icon: nextjs },
-  { name: "Python", icon: pythonsvg },
-  { name: "C++", icon: csvg },
-  { name: "Java", icon: javsvg },
-  { name: "Node.js", icon: nodesvg },
-  { name: "Express", icon: expressvg },
-  { name: "PostgreSQL", icon: postsqlsvg },
-  { name: "MongoDB", icon: mongodbsvg },
-  { name: "Firebase", icon: firebasesvg },
-  { name: "Flask", icon: flask },
-  { name: "FastAPI", icon: Fastapi },
-  { name: "Git", icon: git },
-  { name: "GitHub", icon: githubsvg },
-  { name: "VSCode", icon: vscode },
-  { name: "Jupyter", icon: jupyter },
-  { name: "Figma", icon: figma },
+const skillsData = [
+  { name: "React", icon: reactsvg, category: "Frontend" },
+  { name: "Next.js", icon: nextjs, category: "Frontend" },
+  { name: "JavaScript", icon: jssvg, category: "Frontend" },
+  { name: "Tailwind CSS", icon: tailwindsvg, category: "Frontend" },
+  { name: "HTML5", icon: htmlsvg, category: "Frontend" },
+  { name: "CSS3", icon: csssvg, category: "Frontend" },
+
+  { name: "Node.js", icon: nodesvg, category: "Backend" },
+  { name: "Express.js", icon: expressvg, category: "Backend" },
+  { name: "FastAPI", icon: Fastapi, category: "Backend" },
+  { name: "Flask", icon: flask, category: "Backend" },
+
+  { name: "PostgreSQL", icon: postsqlsvg, category: "Database" },
+  { name: "MongoDB", icon: mongodbsvg, category: "Database" },
+  { name: "Firebase", icon: firebasesvg, category: "Database" },
+
+  { name: "Python", icon: pythonsvg, category: "Languages & Tools" },
+  { name: "C++", icon: csvg, category: "Languages & Tools" },
+  { name: "Java", icon: javsvg, category: "Languages & Tools" },
+  { name: "Git", icon: git, category: "Languages & Tools" },
+  { name: "GitHub", icon: githubsvg, category: "Languages & Tools" },
+  { name: "VS Code", icon: vscode, category: "Languages & Tools" },
+  { name: "Jupyter", icon: jupyter, category: "Languages & Tools" },
+  { name: "Figma", icon: figma, category: "Languages & Tools" },
 ];
 
-/**
- * Individual Floating Skill Icon (3D)
- */
-function SkillIcon({ skill, position }) {
-  const [hovered, setHovered] = useState(false);
-  const ref = useRef();
-
-  useFrame((state) => {
-    if (ref.current) {
-      const t = state.clock.elapsedTime;
-      // Gentle floating motion
-      ref.current.position.y = position[1] + Math.sin(t + position[0] * 0.5) * 0.1;
-    }
-  });
-
-  return (
-    <group position={position} ref={ref}>
-      <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
-        <Billboard follow={true}>
-          <mesh
-            onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; setHovered(true); }}
-            onPointerOut={() => { document.body.style.cursor = 'auto'; setHovered(false); }}
-            scale={hovered ? 1.4 : 1}
-          >
-            {/* The Icon Image */}
-            <Image 
-              url={skill.icon} 
-              transparent 
-              scale={[1.2, 1.2]} 
-              opacity={hovered ? 1 : 0.8}
-              toneMapped={false} // Crucial for Bloom to work
-              color={hovered ? "#ffffff" : "#e0e0e0"} 
-            />
-            
-            {/* The Text Label */}
-            <Text
-              position={[0, -0.9, 0]}
-              fontSize={0.25}
-              color={hovered ? "#61dafb" : "white"} // Bright color triggers Bloom
-              anchorX="center"
-              anchorY="middle"
-              fillOpacity={hovered ? 1 : 0.6}
-            >
-              {skill.name}
-            </Text>
-          </mesh>
-        </Billboard>
-      </Float>
-    </group>
-  );
-}
-
-/**
- * The Sphere Cloud of Icons
- */
-function SkillCloud() {
-  const positions = useMemo(() => {
-    const pos = [];
-    const count = skills.length;
-    const phi = Math.PI * (3 - Math.sqrt(5)); 
-    const radius = 6.5; 
-
-    for (let i = 0; i < count; i++) {
-      const y = 1 - (i / (count - 1)) * 2;
-      const r = Math.sqrt(1 - y * y);
-      const theta = phi * i;
-      pos.push([
-        Math.cos(theta) * r * radius,
-        y * radius,
-        Math.sin(theta) * r * radius,
-      ]);
-    }
-    return pos;
-  }, []);
-
-  return (
-    <group>
-      {skills.map((skill, i) => (
-        <SkillIcon key={i} skill={skill} position={positions[i]} />
-      ))}
-    </group>
-  );
-}
+const categories = [
+  { id: "All", label: "All Tech" },
+  { id: "Frontend", label: "Frontend" },
+  { id: "Backend", label: "Backend" },
+  { id: "Database", label: "Database" },
+  { id: "Languages & Tools", label: "Tools" },
+];
 
 const Skill = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("All");
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const filteredSkills = useMemo(() => {
+    if (activeCategory === "All") return skillsData;
+    return skillsData.filter((skill) => skill.category === activeCategory);
+  }, [activeCategory]);
 
   return (
-    <section id="skills" className="relative min-h-screen w-full flex flex-col items-center justify-center py-20 overflow-hidden bg-[#030712]">
-      
-      {/* --- Background Ambient Glows --- */}
-      <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[120px] pointer-events-none" />
+    <section id="skills" className="w-full bg-[#F8F7F4] text-[#0A0A0A] py-24 sm:py-32 px-6 sm:px-10 lg:px-12 border-t border-black/10">
+      <div className="max-w-7xl mx-auto w-full">
+        
+        {/* Header Row */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 pb-8 border-b border-black/10">
+          <div>
+            <h2 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter text-[#0A0A0A] leading-[0.9]">
+              skills
+            </h2>
+          </div>
 
-      {/* --- Header --- */}
-      <motion.div 
-        initial={{ opacity: 0, y: -30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="z-10 text-center mb-10 relative"
-      >
-        <h2 className="text-sm font-bold tracking-[0.3em] text-indigo-400 uppercase mb-3 drop-shadow-[0_0_10px_rgba(129,140,248,0.5)]">
-          My Tech Stack
-        </h2>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-100 to-cyan-200 drop-shadow-sm">
-          Skills & Technologies
-        </h1>
-      </motion.div>
+          {/* Minimalist Filter Tabs */}
+          <div className="flex flex-wrap gap-2">
+            {categories.map((tab) => {
+              const isActive = activeCategory === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveCategory(tab.id)}
+                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "bg-[#0A0A0A] text-white shadow-sm"
+                      : "border border-black/15 text-black/70 hover:border-black hover:text-[#0A0A0A] bg-white"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-      {/* --- Content Switcher --- */}
-      {isMobile ? (
-        // === Mobile Premium Grid ===
-        <div className="w-full max-w-6xl px-4 z-10">
-          <div className="grid grid-cols-3 gap-3 sm:gap-4">
-            {skills.map((skill, index) => (
+        {/* Clean Editorial Grid */}
+        <motion.div
+          layout
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredSkills.map((skill, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="flex flex-col items-center justify-center p-4 bg-[#0f1236]/50 backdrop-blur-xl border border-white/10 rounded-2xl hover:bg-white/10 hover:border-indigo-500/30 transition-all duration-300 group shadow-lg"
+                key={skill.name}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                whileHover={{ y: -4 }}
+                className="p-5 rounded-2xl bg-white border border-black/10 hover:border-[#F4A836] hover:shadow-md transition-all duration-300 flex flex-col items-center justify-center text-center group cursor-default"
               >
-                <div className="w-10 h-10 mb-2 relative">
-                  <img 
-                    src={skill.icon} 
-                    alt={skill.name} 
-                    className="w-full h-full object-contain drop-shadow-lg group-hover:scale-110 transition-transform duration-300"
+                <div className="w-12 h-12 mb-3 rounded-xl bg-[#F8F7F4] flex items-center justify-center p-2 group-hover:scale-110 transition-transform duration-300">
+                  <img
+                    src={skill.icon}
+                    alt={skill.name}
+                    className="w-full h-full object-contain"
+                    loading="lazy"
                   />
                 </div>
-                <span className="text-[10px] sm:text-xs text-gray-400 group-hover:text-white font-medium tracking-wide">
+
+                <h3 className="text-sm font-bold text-[#0A0A0A] tracking-tight group-hover:text-[#F4A836] transition-colors">
                   {skill.name}
+                </h3>
+
+                <span className="text-[10px] font-mono text-black/40 mt-1 uppercase">
+                  {skill.category}
                 </span>
               </motion.div>
             ))}
-          </div>
-        </div>
-      ) : (
-        // === Desktop 3D Hologram ===
-        <div className="w-full h-[700px] relative z-10 cursor-grab active:cursor-grabbing">
-          <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 14], fov: 45 }}>
-            {/* Lighting */}
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} color="#4f46e5" intensity={2} />
-            
-            {/* Controls */}
-            <OrbitControls 
-              enableZoom={false} 
-              autoRotate 
-              autoRotateSpeed={0.5} 
-              enablePan={false}
-              maxPolarAngle={Math.PI / 1.5}
-              minPolarAngle={Math.PI / 3}
-            />
-            
-            {/* The Cloud */}
-            <SkillCloud />
+          </AnimatePresence>
+        </motion.div>
 
-            {/* Premium Effects */}
-            <Sparkles count={100} scale={12} size={2} speed={0.4} opacity={0.5} color="#6366f1" />
-            
-            {/* Post Processing for the "Holographic Glow" */}
-            <EffectComposer disableNormalPass>
-              <Bloom 
-                luminanceThreshold={0.2} 
-                mipmapBlur 
-                intensity={0.8} 
-                radius={0.4} 
-              />
-            </EffectComposer>
-            
-            {/* Mist for depth */}
-            <fog attach="fog" args={['#030712', 10, 30]} />
-          </Canvas>
-
-          {/* Interaction Hint */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.7 }}
-            transition={{ delay: 2, duration: 1 }}
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-gray-500 text-xs tracking-[0.2em] uppercase pointer-events-none"
-          >
-            Drag to Rotate
-          </motion.div>
-        </div>
-      )}
+      </div>
     </section>
   );
 };

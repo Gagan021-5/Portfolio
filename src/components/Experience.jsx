@@ -1,146 +1,80 @@
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
 
-const experienceSlides = [
+const experienceList = [
   {
-    id: "exp-1",
-    eyebrow: "01",
-    heading: "Frontend Developer Intern",
-    subheading: "Creatibl Solution Pvt Limited",
-    rows: [
-      ["Role", "Frontend Developer Intern"],
-      ["Company", "Creatibl Solution Pvt Limited"],
-      ["Duration", "April 2025 - July 2025"],
-      ["Location", "Remote"],
-      ["Work Type", "Internship"],
-      ["Tech Stack", "React.js, Tailwind CSS, JavaScript"],
-      [
-        "Summary",
-        "Developed responsive and interactive user interfaces and optimized the application for faster performance.",
-      ],
-    ],
+    role: "Software Developer Intern",
+    company: "Oblu Healthcare LLP",
+    period: "Aug 2026 - Present",
+    type: "Internship",
+    location: "New Delhi, India",
+    description: "Building an employee call-tracking and analytics platform with React Native Expo, Django REST Framework, and PostgreSQL. Integrated into the company CRM.",
   },
   {
-    id: "exp-2",
-    eyebrow: "02",
-    heading: "Full Stack AI Engineer ",
-    subheading: "RentPrompts",
-    rows: [
-      ["Role", "Full Stack AI Engineer Intern"],
-      ["Company", "RentPrompts"],
-      ["Employment Type", "Full-Time"],
-      ["Start Date", "April 8, 2026"],
-      ["Location", "Remote/Hybrid"],
-    ],
+    role: "Full Stack AI Engineer Intern",
+    company: "RentPrompts",
+    period: "April 2026 - July 2026",
+    type: "Full-Time",
+    location: "Remote / Hybrid",
+    description: "Built a multi-agent orchestration pipeline with LangGraph and FastAPI. Integrated a ChromaDB RAG system to ground prompts with dynamic blueprints.",
+  },
+  {
+    role: "Frontend Developer Intern",
+    company: "Creatibl Solution Pvt Limited",
+    period: "April 2025 - July 2025",
+    type: "Internship",
+    location: "Remote",
+    description: "Built responsive frontend interfaces with React and Tailwind CSS. Improved page load speed and component reusability.",
   },
 ];
 
 const Experience = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const currentSlide = experienceSlides[activeSlide];
-
   return (
-    <div className="relative py-20">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center"
-        >
-          <p className="text-sm font-semibold uppercase tracking-[0.32em] text-cyan-400">
-            Experience
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-            Professional Journey
+    <section id="experience" className="w-full bg-[#F8F7F4] text-[#0A0A0A] py-24 sm:py-32 px-6 sm:px-10 lg:px-12 border-t border-black/10">
+      <div className="max-w-7xl mx-auto w-full">
+        
+        {/* Header */}
+        <div className="mb-16 pb-8 border-b border-black/10">
+          <h2 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tighter text-[#0A0A0A] leading-[0.9]">
+            experience
           </h2>
-        </motion.div>
-
-        <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8">
-          <div className="w-full overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_24px_80px_rgba(2,6,23,0.22)]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide.id}
-                initial={{ opacity: 0, x: 32 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -32 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="w-full"
-              >
-                <div className="flex flex-col gap-6 p-6 sm:p-8">
-                  <div className="flex flex-col gap-2 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-[0.3em] text-cyan-400">
-                        Slide {currentSlide.eyebrow}
-                      </p>
-                      <h3 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">
-                        {currentSlide.heading}
-                      </h3>
-                      <p className="mt-2 text-sm text-slate-300 sm:text-base">
-                        {currentSlide.subheading}
-                      </p>
-                    </div>
-
-                    <p className="text-sm text-slate-400">
-                      {activeSlide + 1} / {experienceSlides.length}
-                    </p>
-                  </div>
-
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full border-collapse text-left text-sm text-slate-200">
-                      <thead>
-                        <tr className="border-b border-white/10">
-                          <th className="w-44 px-4 py-4 font-semibold text-white sm:px-6">
-                            Field
-                          </th>
-                          <th className="px-4 py-4 font-semibold text-white sm:px-6">
-                            Details
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {currentSlide.rows.map(([label, value]) => (
-                          <tr key={label} className="border-b border-white/10 last:border-b-0">
-                            <th className="px-4 py-4 align-top text-xs font-medium uppercase tracking-[0.22em] text-cyan-300 sm:px-6">
-                              {label}
-                            </th>
-                            <td className="px-4 py-4 leading-7 text-slate-300 sm:px-6">
-                              {value}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          <div className="flex items-center justify-center gap-3" aria-label="Experience slide navigation">
-            {experienceSlides.map((slide, index) => {
-              const isActive = index === activeSlide;
-
-              return (
-                <button
-                  key={slide.id}
-                  type="button"
-                  aria-label={`Show experience slide ${index + 1}`}
-                  aria-pressed={isActive}
-                  onClick={() => setActiveSlide(index)}
-                  className={`h-3 w-3 cursor-pointer rounded-full border transition-all duration-200 ${
-                    isActive
-                      ? "scale-125 border-cyan-400 shadow-[0_0_0_3px_rgba(34,211,238,0.12)]"
-                      : "border-white/35 hover:border-white/70"
-                  }`}
-                />
-              );
-            })}
-          </div>
         </div>
+
+        {/* Experience Rows */}
+        <div className="flex flex-col divide-y divide-black/10 border-t border-black/10">
+          {experienceList.map((exp, index) => (
+            <div
+              key={index}
+              className="py-10 sm:py-12 grid grid-cols-1 md:grid-cols-12 gap-6 items-start group"
+            >
+              <div className="md:col-span-3">
+                <span className="text-xs font-mono text-[#F4A836] uppercase tracking-wider block mb-1">
+                  {exp.period}
+                </span>
+                <span className="text-xs font-bold text-black/40 uppercase tracking-widest">
+                  {exp.type} • {exp.location}
+                </span>
+              </div>
+
+              <div className="md:col-span-5">
+                <h3 className="text-2xl sm:text-3xl font-black text-[#0A0A0A] tracking-tight group-hover:text-[#F4A836] transition-colors">
+                  {exp.role}
+                </h3>
+                <p className="text-base font-semibold text-black/60 mt-1">
+                  {exp.company}
+                </p>
+              </div>
+
+              <div className="md:col-span-4">
+                <p className="text-sm text-black/70 leading-relaxed font-normal">
+                  {exp.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 };
 
